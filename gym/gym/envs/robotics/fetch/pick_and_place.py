@@ -6,8 +6,8 @@ from gym.envs.robotics import fetch_env
 import numpy as np
 from PIL import Image
 
-from vae.import_vae import vae_fetch_pick_0
-from vae.import_vae import goal_set_fetch_pick_0
+#from vae.import_vae import vae_fetch_pick_0
+#from vae.import_vae import goal_set_fetch_pick_0
 # from vae.import_vae import goal_set_fetch_pick_1
 
 # edit envs/fetch/interval

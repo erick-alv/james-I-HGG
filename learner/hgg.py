@@ -213,7 +213,7 @@ class HGGLearner:
 	def generateTrainData(self, timestep, i):
 		if timestep % 5 == 0 and self.count < (1280 * 9):
 			rgb_array = np.array(self.env_List[i].render(mode='rgb_array', width=img_size, height=img_size, cam_name='cam_0'))
-			# Image.fromarray(rgb_array).show()
+			#Image.fromarray(rgb_array).show()
 			self.train_data[self.count] = rgb_array
 			self.count += 1
 			if self.count % 1000 == 0:
@@ -221,7 +221,7 @@ class HGGLearner:
 
 		if self.count == 1280 * 9:
 			np.random.shuffle(self.train_data)
-			np.save('data/Hand_Env/vae_train_data_pen', self.train_data)
+			np.save('data/Fetch_Env/vae_train_data_slide_2', self.train_data)
 			print('Finished!')
 			self.count += 1
 			sys.exit()
@@ -288,7 +288,7 @@ class HGGLearner:
 				current.store_step(action, obs, reward, done)
 				if done:
 					break
-				# self.generateTrainData(timestep, i)
+				#self.generateTrainData(timestep, i)
 
 
 			achieved_trajectories.append(np.array(trajectory))

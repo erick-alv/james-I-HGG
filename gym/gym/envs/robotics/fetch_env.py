@@ -89,6 +89,7 @@ class FetchEnv(robot_env.RobotEnv):
         utils.mocap_set_action(self.sim, action)
 
     def _get_obs(self):
+        self._set_arm_visible(False)
         # First time set arm invis
         if self.visible:
             # self._set_arm_visible(False)
