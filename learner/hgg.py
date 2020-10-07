@@ -288,7 +288,7 @@ class HGGLearner:
 				current.store_step(action, obs, reward, done)
 				if done:
 					break
-				#self.generateTrainData(timestep, i)
+				self.generateTrainData(timestep, i)
 
 
 			achieved_trajectories.append(np.array(trajectory))

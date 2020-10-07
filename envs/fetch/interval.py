@@ -20,3 +20,6 @@ class IntervalGoalEnv(FixedObjectGoalEnv):
 		else:
 			goal = self.initial_gripper_xpos[:3] + np.array([np.random.uniform(-self.target_range, self.target_range), self.target_range, self.target_range])
 		return goal.copy()
+
+	#def generate_goal(self):
+	#	return self.env.env._sample_goal()

@@ -40,3 +40,18 @@ num_vertices: [31, 31, 11]
 goal_based: True
 clip_return_l: -49.99999999999996
 clip_return_r: 0.0
+*** network initialization complete ***
+*** tester initialization complete ***
+2020-10-07 17:41:19
++---------------+-------+
+| Epoch         | 0/40  |
+| Cycle         | 0/20  |
+| Episodes      | 50    |
+| Timesteps     | 2500  |
+| TimeCost(sec) | 8.916 |
+| Pi_q_loss     |       |
+| Pi_l2_loss    |       |
+| Q_loss        |       |
+| Success       | 0.0   |
++---------------+-------+
+Saved as best policy to log/ddpg-FetchSlide-v1-hgg/!
