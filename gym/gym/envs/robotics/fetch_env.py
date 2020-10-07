@@ -89,7 +89,7 @@ class FetchEnv(robot_env.RobotEnv):
         utils.mocap_set_action(self.sim, action)
 
     def _get_obs(self):
-        self._set_arm_visible(False)
+        #self._set_arm_visible(False)
         # First time set arm invis
         if self.visible:
             # self._set_arm_visible(False)
@@ -115,13 +115,13 @@ class FetchEnv(robot_env.RobotEnv):
         gripper_vel = robot_qvel[-2:] * dt  # change to a scalar if the gripper is made symmetric
 
         if not self.has_object:
-            achieved_goal = grip_pos.copy()
-            #achieved_goal = self._get_image()
+            #achieved_goal = grip_pos.copy()
+            achieved_goal = self._get_image()
         else:
-            achieved_goal = np.squeeze(object_pos.copy())
-            #self._set_arm_visible(False)
-            #achieved_goal = self._get_image().copy()
-            #self._set_arm_visible()
+            #achieved_goal = np.squeeze(object_pos.copy())
+            self._set_arm_visible(False)
+            achieved_goal = self._get_image().copy()
+            self._set_arm_visible()
 
         # obj_pos = np.squeeze(object_pos.copy())
         obs = np.concatenate([
@@ -213,3 +213,14 @@ class FetchEnv(robot_env.RobotEnv):
 
     def render(self, mode='human', width=500, height=500, cam_name='cam_0'):
         return super(FetchEnv, self).render(mode, width, height, cam_name)
+
+    def _move_object(self, position):
+        if not isinstance(position, np.ndarray):
+            position = np.array(position)
+        object_qpos = self.sim.data.get_joint_qpos('object0:joint')
+        object_qpos[:3] = position[:3]
+        object_qpos[3:] = [1, 0, 0, 0]
+        self.sim.data.set_joint_qpos('object0:joint', object_qpos)
+        for _ in range(1):
+            self.sim.step()
+        self._step_callback()
