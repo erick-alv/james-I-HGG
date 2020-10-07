@@ -50,6 +50,8 @@ class FetchSlideEnv(fetch_env.FetchEnv, utils.EzPickle):
         # save_image(goal_0.cpu().view(-1, 3, self.img_size, self.img_size), 'videos/goal/goal.png')
         x_0, y_0 = vae_fetch_slide.encode(goal_0)
         goal_0 = vae_fetch_slide.reparameterize(x_0, y_0)
+        if len(goal_0.shape) > 1:
+            goal_0 = torch.squeeze(goal_0)
         goal_0 = goal_0.detach().cpu().numpy()
         goal = np.squeeze(goal_0)
         # ach1 = torch.from_numpy(goal_0).float().to('cuda')

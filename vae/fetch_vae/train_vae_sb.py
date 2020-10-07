@@ -125,12 +125,13 @@ class VAE_SB(nn.Module):
         z = self.reparameterize(mu, logvar)
         return self.decode(z), mu, logvar
 
-    '''def format(self, rgb_array):
+    def format(self, rgb_array):
+        img_size = 84
         data = torch.from_numpy(rgb_array).float().to(device='cuda')
         data /= 255
         data = data.permute([2, 0, 1])
-        data = data.reshape([-1, 3, img_size, img_size])
-        return data.reshape(-1, img_size * img_size * 3)'''
+        data = torch.unsqueeze(data, dim=0)
+        return data
 
 # Reconstruction + KL divergence losses summed over all elements and batch
 def loss_function(recon_x, x, mu, logvar):

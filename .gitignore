@@ -3,4 +3,5 @@
 /venv/
 /log
 /vae/results
+achieved_goal*.png
 *.pyc

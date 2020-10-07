@@ -12,7 +12,7 @@ class IntervalGoalEnv(FixedObjectGoalEnv):
 	def __init__(self, args):
 		FixedObjectGoalEnv.__init__(self, args)
 
-	def generate_goal(self):
+	def generate_goal_old(self):
 		# Select a goal for the object position.
 		target_pos = self.sim.data.get_joint_qpos('object:joint')[:3]
 
@@ -27,3 +27,6 @@ class IntervalGoalEnv(FixedObjectGoalEnv):
 		target_quat /= np.linalg.norm(target_quat)  # normalized quaternion
 		goal = np.concatenate([target_pos, target_quat])
 		return goal.copy()
+
+	def generate_goal(self):
+		self.env.env._sample_goal()

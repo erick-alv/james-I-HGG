@@ -9,12 +9,14 @@ import vae.hand_vae.train_hand_egg_vae as VAE_EGG
 import vae.hand_vae.train_hand_reach_vae as VAE_HAND_REACH
 import vae.hand_vae.train_hand_block_vae as VAE_HAND_BLOCK
 import vae.hand_vae.train_hand_pen_vae as VAE_HAND_PEN
+from vae.fetch_vae.train_vae_sb import load_Vae as load_VAE_SB
 
 # Vae Model
 # Fetch
 vae_fetch_push = VAE_PUSH.load_Vae(path='data/Fetch_Env/vae_model_push')
 vae_fetch_reach = VAE_FETCH_REACH.load_Vae(path='data/Fetch_Env/vae_model_reach')
-vae_fetch_slide = VAE_FETCH_SLIDE.load_Vae(path='data/Fetch_Env/vae_model_slide')
+#vae_fetch_slide = VAE_FETCH_SLIDE.load_Vae(path='data/Fetch_Env/vae_model_slide')
+vae_fetch_slide = load_VAE_SB(path='data/Fetch_Env/vae_sb_slide', latent_size=4)
 #vae_fetch_pick_0 = VAE_FETCH_PICK_0.load_Vae(path='data/Fetch_Env/vae_model_pick_0')
 #vae_fetch_pick_0 = VAE_FETCH_PICK_0.load_Vae(path='data/Fetch_Env/vae_model_pick')
 # vae_fetch_pick_1 = VAE_FETCH_PICK_1.load_Vae(path='data/Fetch_Env/vae_model_pick_1')
