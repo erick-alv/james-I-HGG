@@ -2,4 +2,5 @@
 /videos/
 /venv/
 /log
+/vae/results
 *.pyc
