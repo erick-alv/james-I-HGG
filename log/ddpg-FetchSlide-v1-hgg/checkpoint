@@ -1,3 +1,0 @@
-model_checkpoint_path: "saved_policy-latest"
-all_model_checkpoint_paths: "saved_policy-best"
-all_model_checkpoint_paths: "saved_policy-latest"
