@@ -32,7 +32,7 @@
 		<body name="cam_focus" pos="1.15 0.75 .5">
 			<geom size="0.025 0.025 0.025" type="sphere" rgba="1 0 0 0"></geom>
 		</body>
-		<camera name="cam_0" mode="targetbody" target="cam_focus" pos="1.15 0.75 -.2"></camera><!-- -1.5-->
+		<camera name="cam_0" mode="targetbody" target="cam_focus" pos="1.15 0.75 -.2"></camera>
 	</worldbody>
 
 	<visual>

@@ -42,7 +42,6 @@ class Tester:
 		for i in range(self.test_rollouts):
 			acc_sum += infos[i]['is_success']
 
-
 		steps = self.args.buffer.counter
 		acc = acc_sum/self.test_rollouts
 		self.acc_record[key].append((steps, acc))
@@ -62,19 +61,18 @@ class Tester:
 		for i in range(self.test_rollouts):
 			acc_sum += infos[i]['is_success']
 			if infos[i]['is_success'] > 0:
-				current = np.array(env[i].render(mode='rgb_array', width=84, height=84, cam_name='cam_0'))
+				achieved = np.array(env[i].render(mode='rgb_array', width=84, height=84, cam_name='cam_0'))
 				spacer = np.zeros(shape=(84, 10, 3))
 				actual_goal = env[i].env.env.current_goal
-				concat = np.concatenate([current, spacer, actual_goal], axis=1)
+				concat = np.concatenate([achieved, spacer, actual_goal], axis=1)
 				im = Image.fromarray(concat.astype(np.uint8))
-				im.save('achieved_goal_env_{}_call{}.png'.format(i, self.calls))
+				im.save('{}achieved_goal_env_{}_call{}.png'.format(self.args.logger.my_log_dir,i, self.calls))
 				im.close()
 		steps = self.args.buffer.counter
 		acc = acc_sum/self.test_rollouts
 		self.acc_record[key].append((steps, acc))
 		self.args.logger.add_record('Success', acc)
-		self.calls +=1
-
+		self.calls += 1
 
 	def cycle_summary(self):
 		if self.args.save_acc:

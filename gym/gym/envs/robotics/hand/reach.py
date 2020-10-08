@@ -77,8 +77,8 @@ class HandReachEnv(hand_env.HandEnv, utils.EzPickle):
 
     def _get_achieved_goal(self):
         return self._get_image()
-        goal = [self.sim.data.get_site_xpos(name) for name in FINGERTIP_SITE_NAMES]
-        return np.array(goal).flatten()
+        #goal = [self.sim.data.get_site_xpos(name) for name in FINGERTIP_SITE_NAMES]
+        #return np.array(goal).flatten()
 
     def _get_image(self):
         rgb_array = np.array(self.render(mode='rgb_array', width=84, height=84, cam_name='cam_0'))
@@ -145,10 +145,6 @@ class HandReachEnv(hand_env.HandEnv, utils.EzPickle):
     def _sample_goal(self):
         goal = goal_set_reach[np.random.randint(10)]  # np.random.randint(3)
         self.current_goal = goal.copy()
-        '''from PIL import Image
-        im = Image.fromarray(goal.astype(np.uint8))
-        im.show()
-        im.close()'''
         goal = vae_hand_reach.format(goal)
         save_image(goal.cpu().view(-1, 3, self.img_size, self.img_size), 'goal.png')
         x, y = vae_hand_reach.encode(goal)

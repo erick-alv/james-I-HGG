@@ -27,6 +27,3 @@ class IntervalGoalEnv(FixedObjectGoalEnv):
 		target_quat /= np.linalg.norm(target_quat)  # normalized quaternion
 		goal = np.concatenate([target_pos, target_quat])
 		return goal.copy()
-
-	def generate_goal(self):
-		self.env.env._sample_goal()

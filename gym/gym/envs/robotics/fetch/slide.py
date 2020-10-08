@@ -13,9 +13,9 @@ from vae.import_vae import vae_fetch_slide
 # Change to normal hgg
 # edit envs/fetch/interval
 # edit fetch_env: sample_goal
-# edit fetch_env: get_obs d
+# edit fetch_env: get_obs
 # edit here: sample_goal
-# edit here: dist_threshold (original: 0.05)  ??
+# edit here: dist_threshold (original: 0.05)
 # Ensure we get the path separator correct on windows
 MODEL_XML_PATH = os.path.join('fetch', 'slide.xml')
 
@@ -31,27 +31,18 @@ class FetchSlideEnv(fetch_env.FetchEnv, utils.EzPickle):
         fetch_env.FetchEnv.__init__(
             self, MODEL_XML_PATH, has_object=True, block_gripper=True, n_substeps=20,
             gripper_extra_height=-0.02, target_in_the_air=False, target_offset=np.array([0.4, 0.0, 0.0]),
-            obj_range=0.1, target_range=0.3, distance_threshold=0.1,
+            obj_range=0.1, target_range=0.3, distance_threshold=0.08,
             initial_qpos=initial_qpos, reward_type=reward_type)
         utils.EzPickle.__init__(self)
 
-    #def _sample_goal(self):
     def _sample_goal(self):
         # Sample randomly from goalset
-        index = np.random.randint(10) + 10
+        index = np.random.randint(5)
         goal_0 = goal_set_fetch_slide[index]
-        #print(len(goal_set_fetch_slide))
-        #from PIL import Image
-        #im = Image.fromarray(goal_0.astype(np.uint8))
-        #im.show()
-        #im.close()
         goal_0 = vae_fetch_slide.format(goal_0)
-
         # save_image(goal_0.cpu().view(-1, 3, self.img_size, self.img_size), 'videos/goal/goal.png')
         x_0, y_0 = vae_fetch_slide.encode(goal_0)
         goal_0 = vae_fetch_slide.reparameterize(x_0, y_0)
-        if len(goal_0.shape) > 1:
-            goal_0 = torch.squeeze(goal_0)
         goal_0 = goal_0.detach().cpu().numpy()
         goal = np.squeeze(goal_0)
         # ach1 = torch.from_numpy(goal_0).float().to('cuda')
@@ -62,10 +53,6 @@ class FetchSlideEnv(fetch_env.FetchEnv, utils.EzPickle):
     def _get_image(self):
         rgb_array_0 = np.array(self.render(mode='rgb_array', width=84, height=84, cam_name="cam_0"))
         tensor_0 = vae_fetch_slide.format(rgb_array_0)
-        #from PIL import Image
-        #im = Image.fromarray(rgb_array_0.astype(np.uint8))
-        #im.show()
-        #im.close()
         x_0, y_0 = vae_fetch_slide.encode(tensor_0)
         obs_0 = vae_fetch_slide.reparameterize(x_0, y_0)
         obs_0 = obs_0.detach().cpu().numpy()
